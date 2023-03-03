@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Player List</title>
@@ -11,9 +11,12 @@
 
 <form th:action="@{/player}" method="get">
     <input placeholder="Tìm kiếm theo tên..." name="freeText" type="text"/>
+<!--    <input type="date" name="fromDate" placeholder="...">-->
+<!--    <input type="date" name="todate" placeholder="...">-->
     <button type="submit"/>Search</button>
 </form>
-
+<h3 th:href="@{/player/create}"></h3>
+<h5 th:text="${mess}"></h5>
 <table class="table table-success">
     <tr>
         <th>#</th>
@@ -22,6 +25,8 @@
         <th>Experience</th>
         <th>Birthday</th>
         <th>Avatar</th>
+        <th>Update</th>
+        <th>Delete</th>
     </tr>
 
     <tr th:each="player,status : ${playerList}">
@@ -31,6 +36,13 @@
         <td th:text="${player.experience}"></td>
         <td th:text="${player.dateOfBirth}"></td>
         <td><img src="${player.avatar}"></td>
+        <td th:href="@{/player/update}"></td>
+        <td>
+            <button th:attr="onclick=|removePlayer('${player.id}','${player.name}')|"
+                    class="btn btn-outline-info save"
+                    data-bs-toggle="modal" data-bs-target="#deleteModal">Xoá
+            </button>
+        </td>
     </tr>
 </table>
 <form th:action="@{/player}">
@@ -41,6 +53,33 @@
     <button type="submit">Ok</button>
 </form>
 </body>
+<!--modal xoá-->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Xoá tác phẩm</h5>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/player/delete}" id="deleteForm" method="post">
+                    <input type="text" id="idDelete" name="idDelete" hidden>
+                    <span>Bạn có muốn xoá cầu thủ </span><span class="text-danger" id="nameDelete"></span>?
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-md" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary btn-md save" form="deleteForm">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function removePlayer(id, name) {
+        document.getElementById("idDelete").value = id;
+        document.getElementById("nameDelete").innerText = name;
+    }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>

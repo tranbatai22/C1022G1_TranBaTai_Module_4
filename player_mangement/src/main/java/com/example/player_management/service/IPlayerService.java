@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IPlayerService {
-//    List<Player> findAll();
-//
-//    void delete(int id);
-//
-//    Optional<Player> findById(int id);
+    List<Player> findAll();
+
+    void delete(int id);
+
+    void save(Player player);
 
     Page<Player> searchByName(String name, String fromDate, String toDate, Pageable pageable);
 }

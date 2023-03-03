@@ -18,23 +18,24 @@ public class PlayerService implements IPlayerService {
     private IPlayerRepository playerRepository;
 
     @Override
+    public List<Player> findAll() {
+        return playerRepository.findAll();
+    }
+
+    @Override
+    public void delete(int id) {
+        playerRepository.deleteById(id);
+    }
+
+    @Override
+    public void save(Player player) {
+        playerRepository.save(player);
+    }
+
+    @Override
     public Page<Player> searchByName(String name, String fromDate, String toDate, Pageable pageable) {
         return playerRepository.searchByNameContainingAndDayOfBirthBetween("%" + name + "%", LocalDate.parse(fromDate), LocalDate.parse(toDate), pageable);
     }
 
-//    @Override
-//    public List<Player> findAll() {
-//        return playerRepository.findAll();
-//    }
-//
-//    @Override
-//    public void delete(int id) {
-//        playerRepository.deleteById(id);
-//    }
-//
-//    @Override
-//    public Optional<Player> findById(int id) {
-//        return playerRepository.findById(id);
-//    }
 
 }

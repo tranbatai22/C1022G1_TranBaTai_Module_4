@@ -1,9 +1,6 @@
 package com.example.player_management.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Player {
@@ -15,6 +12,17 @@ public class Player {
     private String experience;
     private String avatar;
     private String position;
+    @ManyToOne
+    @JoinColumn(name = "id_team", referencedColumnName = "idTeam")
+    private Team team;
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
 
     public Player() {
     }
