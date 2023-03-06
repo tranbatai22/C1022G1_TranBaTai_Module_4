@@ -8,23 +8,37 @@
 <h2>CHỈNH SỬA TÁC PHẨM</h2>
 <form th:action="@{/player/update}"
       th:object="${player}" method="post" novalidate="novalidate">
-<input type="hidden" th:field="*{id}">
+    <input type="hidden" th:field="*{id}">
+
     <label for="name">Tên cầu thủ:</label>
-    <input type="text" id="name"placeholder="Nhập tên cầu thủ"
+    <input type="text" id="name" placeholder="Nhập tên cầu thủ"
            th:field="*{name}"/>
-<br>
+    <span class="input-group-text"><i class="fa-solid fa-person-circle-question"></i></span><br>
+
     <label for="dateOfBirth">Ngày sinh:</label>
     <input type="date" id="dateOfBirth" th:field="*{dateOfBirth}"/>
-<br>
+    <span class="input-group-text"><i class="fa-solid fa-person-circle-question"></i></span><br>
+
     <label for="experience">Kinh nghiệm:</label>
-    <input type="text" id="experience"placeholder="Kinh nghiệm"
+    <input type="text" id="experience" placeholder="Kinh nghiệm"
            th:field="*{experience}"/>
-<br>
+    <span class="input-group-text"><i class="fa-solid fa-person-circle-question"></i></span><br>
+
+    <label for="position">Vị trí:</label>
+    <select id="position" th:field="*{position.positionId}">
+        <option th:each="position : ${position}" th:value="${position.positionId}"
+                th:text="${position.positionName}"></option>
+    </select>
+    <span class="input-group-text"><i class="fa-solid fa-ranking-star"></i></span><br>
+
+
     <label for="team">Đội tuyển:</label>
     <select id="team" th:field="*{team.idTeam}">
         <option th:each="team : ${team}" th:value="${team.idTeam}"
                 th:text="${team.nameTeam}"></option>
     </select>
+    <span class="input-group-text"><i class="fa-solid fa-ranking-star"></i></span><br>
+    <button>save</button>
 </form>
 </body>
 </html>

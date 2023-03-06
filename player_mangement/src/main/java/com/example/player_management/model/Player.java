@@ -11,7 +11,9 @@ public class Player {
     private String dateOfBirth;
     private String experience;
     private String avatar;
-    private String position;
+    @ManyToOne
+    @JoinColumn(name = "position_id", referencedColumnName = "positionId")
+    private Position position;
     @ManyToOne
     @JoinColumn(name = "id_team", referencedColumnName = "idTeam")
     private Team team;
@@ -22,6 +24,14 @@ public class Player {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     public Player() {
@@ -67,11 +77,4 @@ public class Player {
         this.avatar = avatar;
     }
 
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
 }
