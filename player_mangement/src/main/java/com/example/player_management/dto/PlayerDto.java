@@ -1,23 +1,26 @@
 package com.example.player_management.dto;
 
+import com.example.player_management.model.Position;
 import com.example.player_management.model.Team;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 import javax.validation.constraints.*;
 
-public class PlayerDto {
+public class PlayerDto implements Validator {
     private int id;
+
     @NotBlank(message = "Tên không được để trống")
     @Size(min = 5, max = 100, message = "Tên phải nằm trong khoảng 5 đến 100 kí tự")
     @Pattern(regexp = "^[a-zA-Z]*$", message = "Tên không được chưa kí tự đặc biệt")
     private String name;
     @Min(value = 16, message = "Tuổi phải lớn hơn hoặc bằng 16")
     @Max(value = 100, message = "Tuổi phải nhỏ hơn hoặc bằng 100")
-    private String dateOfBirth;
-    @Pattern(regexp = "^\\d+$", message = "Kinh nghiệm phải là số nguyên dương")
+    private String age;
+    @Pattern(regexp = "^[1-9]\\d*$", message = "Kinh nghiệm phải là số nguyên dương.")
     private String experience;
     private String avatar;
-
-    private String position;
+    private Position position;
     private Team team;
 
     public PlayerDto() {
@@ -40,11 +43,11 @@ public class PlayerDto {
     }
 
     public String getDateOfBirth() {
-        return dateOfBirth;
+        return age;
     }
 
     public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+        this.age = dateOfBirth;
     }
 
     public String getExperience() {
@@ -63,11 +66,11 @@ public class PlayerDto {
         this.avatar = avatar;
     }
 
-    public String getPosition() {
+    public Position getPosition() {
         return position;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(Position position) {
         this.position = position;
     }
 
@@ -77,5 +80,15 @@ public class PlayerDto {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+
     }
 }

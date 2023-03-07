@@ -7,35 +7,43 @@
 <body>
 <h2>THÊM MỚI TÁC PHẨM</h2>
 <form th:action="@{/player/create}"
-      th:object="${player}" method="post" novalidate="novalidate">
+      th:object="${playerDto}" method="post" novalidate="novalidate">
 
     <label for="name">Tên cầu thủ:</label>
     <input type="text" id="name" placeholder="Nhập tên cầu thủ"
            th:field="*{name}"/>
+    <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
     <span class="input-group-text"><i class="fa-solid fa-person-circle-question"></i></span><br>
+
 
     <label for="dateOfBirth">Ngày sinh:</label>
     <input type="date" id="dateOfBirth" th:field="*{dateOfBirth}"/>
+    <p style="color: red" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></p>
     <span class="input-group-text"><i class="fa-solid fa-person-circle-question"></i></span><br>
+
 
     <label for="experience">Kinh nghiệm:</label>
     <input type="text" id="experience" placeholder="Kinh nghiệm"
            th:field="*{experience}"/>
+    <p style="color: red" th:if="${#fields.hasErrors('experience')}" th:errors="*{experience}"></p>
     <span class="input-group-text"><i class="fa-solid fa-person-circle-question"></i></span><br>
+
 
     <label for="position">Vị trí:</label>
     <select id="position" th:field="*{position.positionId}">
-        <option th:each="position : ${position}" th:value="${position.positionId}"
-                th:text="${position.positionName}"></option>
+        <option th:each="p : ${positionList}" th:value="${p.positionId}"
+                th:text="${p.positionName}"></option>
     </select>
     <span class="input-group-text"><i class="fa-solid fa-ranking-star"></i></span><br>
 
+
     <label for="team">Đội tuyển:</label>
     <select id="team" th:field="*{team.idTeam}">
-        <option th:each="team : ${team}" th:value="${team.idTeam}"
+        <option th:each="team : ${teamList}" th:value="${team.idTeam}"
                 th:text="${team.nameTeam}"></option>
     </select>
     <span class="input-group-text"><i class="fa-solid fa-ranking-star"></i></span><br>
+
 
     <button>save</button>
 </form>

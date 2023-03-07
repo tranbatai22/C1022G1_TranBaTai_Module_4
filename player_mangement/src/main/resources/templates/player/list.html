@@ -34,10 +34,10 @@
     <tr th:each="player,status : ${playerList}">
         <td th:text="${status.count}"></td>
         <td th:text="${player.name}"></td>
-        <td th:text="${player.position.positionName}"></td>
+        <td th:text="${player.position?.positionName}"></td>
         <td th:text="${player.experience}"></td>
-        <td th:text="${player.dateOfBirth}"></td>
-        <td th:text="${player.team.nameTeam}"></td>
+        <td th:text="${player.age}"></td>
+        <td th:text="${player.team?.nameTeam}"></td>
         <td><img style="width: 50px; height: 50px" th:src="${player.avatar}"></td>
         <td>
             <button class="btn btn-outline-info save"><a th:href="@{/player/update/{id}(id=${player.id})}">Sửa</a></button>
