@@ -102,10 +102,9 @@ public class PlayerController {
     public String update(@ModelAttribute @Validated PlayerDto playerDto, BindingResult bindingResult,
                          RedirectAttributes redirectAttributes, Model model) {
 
-        new PlayerDto().validate(playerDto, bindingResult);
+//        new PlayerDto().validate(playerDto, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("playerDto",playerDto);
             model.addAttribute("teamList", teamService.findAll());
             model.addAttribute("positionList", positionService.findAll());
 
