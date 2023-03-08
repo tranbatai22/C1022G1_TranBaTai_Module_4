@@ -10,20 +10,36 @@ import javax.validation.constraints.*;
 public class PlayerDto implements Validator {
     private int id;
 
-    @NotBlank(message = "Tên không được để trống")
-    @Size(min = 5, max = 100, message = "Tên phải nằm trong khoảng 5 đến 100 kí tự")
-    @Pattern(regexp = "^[a-zA-Z]*$", message = "Tên không được chưa kí tự đặc biệt")
+//    @NotBlank(message = "Tên không được để trống")
+//    @Size(min = 5, max = 100, message = "Tên phải nằm trong khoảng 5 đến 100 kí tự")
+//    @Pattern(regexp = "^[a-zA-Z]*$", message = "Tên không được chưa kí tự đặc biệt")
     private String name;
-    @Min(value = 16, message = "Tuổi phải lớn hơn hoặc bằng 16")
-    @Max(value = 100, message = "Tuổi phải nhỏ hơn hoặc bằng 100")
+//    @Min(value = 16, message = "Tuổi phải lớn hơn hoặc bằng 16")
+//    @Max(value = 100, message = "Tuổi phải nhỏ hơn hoặc bằng 100")
     private String age;
-    @Pattern(regexp = "^[1-9]\\d*$", message = "Kinh nghiệm phải là số nguyên dương.")
+//    @Pattern(regexp = "^[1-9]\\d*$", message = "Kinh nghiệm phải là số nguyên dương.")
     private String experience;
     private String avatar;
     private Position position;
     private Team team;
-
+    private boolean status;
     public PlayerDto() {
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
     }
 
     public int getId() {

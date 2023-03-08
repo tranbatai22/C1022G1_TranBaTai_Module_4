@@ -13,11 +13,11 @@
     <input placeholder="Tìm kiếm theo tên..." name="freeText" type="text"/>
     <!--    <input type="date" name="fromDate" placeholder="...">-->
     <!--    <input type="date" name="todate" placeholder="...">-->
-    <button type="submit"/>
-    Search</button>
+    <button type="submit"/>Search</button>
 </form>
 <h3><a th:href="@{/player/create}">Thêm mới</a></h3>
 <h5 th:text="${mess}"></h5>
+<p>Số lượng cầu thủ: </p><span th:text="${playerList.size()}"></span>
 <table class="table table-success">
     <tr>
         <th>#</th>
@@ -40,7 +40,8 @@
         <td th:text="${player.team?.nameTeam}"></td>
         <td><img style="width: 50px; height: 50px" th:src="${player.avatar}"></td>
         <td>
-            <button class="btn btn-outline-info save"><a th:href="@{/player/update/{id}(id=${player.id})}">Sửa</a></button>
+            <button class="btn btn-outline-info save"><a th:href="@{/player/update/{id}(id=${player.id})}">Sửa</a>
+            </button>
         </td>
         <td>
             <button th:attr="onclick=|removePlayer('${player.id}','${player.name}')|"
@@ -53,8 +54,8 @@
 <form th:action="@{/player}">
     <input type="number" name="page" placeholder="page">
     <input type="number" name="size" placeholder="page size">
-<!--    <input type="date" name="fromDate" placeholder="from Date">-->
-<!--    <input type="date" name="toDate" placeholder="to Date">-->
+    <!--    <input type="date" name="fromDate" placeholder="from Date">-->
+    <!--    <input type="date" name="toDate" placeholder="to Date">-->
     <button type="submit">Ok</button>
 </form>
 </body>

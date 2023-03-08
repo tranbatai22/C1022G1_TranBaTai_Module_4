@@ -1,6 +1,7 @@
 package com.example.player_management.controller;
 
 import com.example.player_management.dto.PlayerDto;
+import com.example.player_management.exception.ExceptionHandle;
 import com.example.player_management.model.Player;
 import com.example.player_management.service.IPlayerService;
 import com.example.player_management.service.IPositionService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -42,13 +44,26 @@ public class PlayerController {
 //
 ////    }
 //
+//    @GetMapping("")
+//    public String showList(@PageableDefault(page = 0) Pageable pageable,
+//                           @RequestParam(name = "freeText", defaultValue = "") String freeText, Model model) {
+//        model.addAttribute("playerList", playerService.findByName(freeText, pageable));
+//        model.addAttribute("teamList", teamService.findAll());
+//        model.addAttribute("position", positionService.findAll());
+//        model.addAttribute("freeText", freeText);
+//        return "/player/list";
+//    }
+
+
     @GetMapping("")
-    public String showList(@PageableDefault(page = 0) Pageable pageable,
-                           @RequestParam(name = "freeText", defaultValue = "") String freeText, Model model) {
-        model.addAttribute("playerList", playerService.findByName(freeText, pageable));
+    public String showList(Model model) throws ExceptionHandle {
+        List<Player> playerList = playerService.findAll();
+        if (playerList.size() > 11) {
+            throw new ExceptionHandle();
+        }
+        model.addAttribute("playerList", playerList);
         model.addAttribute("teamList", teamService.findAll());
         model.addAttribute("position", positionService.findAll());
-        model.addAttribute("freeText", freeText);
         return "/player/list";
     }
 
@@ -116,5 +131,10 @@ public class PlayerController {
         playerService.save(player);
         redirectAttributes.addFlashAttribute("mess", "Chinh sua thanh cong.");
         return "redirect:/player";
+    }
+
+    @ExceptionHandler(ExceptionHandle.class)
+    public String showException() {
+        return "errorPage";
     }
 }

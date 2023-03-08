@@ -11,6 +11,7 @@ public class Player {
     private int age;
     private String experience;
     private String avatar;
+    private boolean status;
     @ManyToOne
     @JoinColumn(name = "position_id", referencedColumnName = "positionId")
     private Position position;
@@ -19,6 +20,14 @@ public class Player {
     private Team team;
 
     public Player() {
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public int getId() {
