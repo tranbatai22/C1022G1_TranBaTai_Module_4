@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/player")
-public class PlayerRestController {
+private class PlayerRestController {
     @Autowired
     private IPlayerService playerService;
     @Autowired
