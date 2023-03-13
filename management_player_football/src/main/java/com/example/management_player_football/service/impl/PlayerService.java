@@ -12,15 +12,15 @@ import java.util.Optional;
 @Service
 public class PlayerService implements IPlayerService {
     @Autowired
-    private IPlayerRepository iPlayerRepository;
+    private IPlayerRepository playerRepository;
 
     @Override
     public List<Player> findAll() {
-        return iPlayerRepository.findAll();
+        return playerRepository.findAll();
     }
 
     @Override
     public Optional<Player> findById(int id) {
-             return iPlayerRepository.findById(id);
+             return playerRepository.findById(id);
         }
 }

@@ -13,11 +13,11 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/player")
-private class PlayerRestController {
+public class PlayerRestController {
     @Autowired
     private IPlayerService playerService;
     @Autowired
-    ITeamService teamService;
+    private ITeamService teamService;
 
     @GetMapping("")
     public ResponseEntity<List<Player>> findAll() {

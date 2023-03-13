@@ -16,9 +16,10 @@ import java.util.Optional;
 
 @Controller
 @SessionAttributes("favorite")
+@RequestMapping("/player")
 public class PlayerController {
     @Autowired
-    private IPlayerService iPlayerService;
+    private IPlayerService playerService;
 
     @ModelAttribute("favorite")
     public FavoriteDto initFavorite() {
@@ -26,39 +27,35 @@ public class PlayerController {
     }
 
     @GetMapping("")
-    public String showList(Model model, @CookieValue(value = "playerId",required = false,defaultValue = "-1") int id) {
-        model.addAttribute("playerList", iPlayerService.findAll());
-        return "player/list";
+    public String showList(Model model, @CookieValue(value = "playerId", required = false, defaultValue = "-1") int id) {
+        model.addAttribute("playerList", playerService.findAll());
+        return "/player/list";
     }
 
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable int id, Model model) {
-        model.addAttribute("player", iPlayerService.findById(id));
-        return "player/detail";
+        model.addAttribute("playerDetail", playerService.findById(id));
+        return "/player/detail";
     }
 
-    @GetMapping("add/{id}")
-    public String addFavorite(@PathVariable int id, @SessionAttribute("favorite") FavoriteDto favoriteDto,
+    @GetMapping("create/{id}")
+    public String addFavorite(@PathVariable int id, @SessionAttribute("favoriteDto") FavoriteDto favoriteDto,
                               HttpServletResponse response) {
-
-        int num=response.getStatus();
-        for (Player players:iPlayerService.findAll()) {
-            if (iPlayerService.findById(id).isPresent()){
-                players.setStatus(players.getStatus()+1);
+        for (Player p : playerService.findAll()) {
+            if (playerService.findById(id).isPresent()) {
+                p.setStatus(p.getStatus() + 1);
             }
         }
 
-        Player player = iPlayerService.findById(id).get();
+        Player player = playerService.findById(id).get();
         PlayerDto playerDto = new PlayerDto();
         BeanUtils.copyProperties(player, playerDto);
         favoriteDto.addFavoritePlayer(playerDto);
-
 
         Cookie cookie = new Cookie("playerId", id + "");
         cookie.setMaxAge(1 * 24 * 60 * 60);
         cookie.setPath("/favorite");
         response.addCookie(cookie);
-
         return "redirect:/favorite";
     }
 }

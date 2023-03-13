@@ -14,18 +14,18 @@
 <h3>Player List</h3>
 
 <table style="width: 100%">
-    <tr th:each="item : ${playerList}">
+    <tr th:each="player : ${playerList}">
         <div class="card custom-card text-center mr-2 mt-2 ml-2 mb-2"
              style="width: 15rem; display: inline-block">
             <div class="card-body">
                 <p><img src="/anh.jpeg" width="120"/></p>
-                <p class="card-text" th:text="${item.name}">Name</p>
+                <p class="card-text" th:text="${player.name}">Name</p>
 
-                <a th:href="@{/detail/__${item.id}__}"
+                <a th:href="@{/player/detail/__${player.id}__}"
                    class="stretched-link btn btn-sm btn-primary mr-2">Detail
                 </a>
 
-                <a th:href="@{/add/__${item.id}__}"
+                <a th:href="@{/player/create/__${player.id}__}"
                    class="stretched-link btn btn-sm btn-primary mr-2">Favorite
                 </a>
 
