@@ -101,6 +101,9 @@
             url: 'http://localhost:8080/rest/players',
             data: JSON.stringify(player),
             success: function (data) {
+              
+            },
+            complete: function (data) {
                 console.log(data);
                 showList();
             }
